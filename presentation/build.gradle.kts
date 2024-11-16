@@ -2,11 +2,13 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.0"
+
 }
 
 android {
     namespace = "com.abanapps.composestore"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.abanapps.composestore"
@@ -60,4 +62,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.koin.android)
     implementation(libs.koin.android.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.ktor.serialization.kotlinx.json)
 }
