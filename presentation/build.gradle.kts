@@ -64,7 +64,6 @@ dependencies {
     implementation(libs.koin.android.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.ktor.serialization.kotlinx.json)
-    implementation("io.coil-kt:coil:2.7.0")
     implementation("io.coil-kt.coil3:coil-compose:3.0.0")
 
 }
