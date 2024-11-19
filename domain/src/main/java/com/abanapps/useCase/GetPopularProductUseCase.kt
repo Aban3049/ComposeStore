@@ -5,8 +5,10 @@ import com.abanapps.repository.ProductRepository
 import com.plcoding.cryptotracker.core.domain.util.NetworkError
 import com.plcoding.cryptotracker.core.domain.util.Result
 
-class GetProductUseCase(private val productRepository: ProductRepository) {
+class GetPopularProductUseCase(private val repository: ProductRepository) {
+
     suspend operator fun invoke(): Result<List<Product>, NetworkError> {
-        return productRepository.getProducts()
+        return repository.getPopularProducts()
     }
+
 }

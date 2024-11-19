@@ -14,13 +14,24 @@ import io.ktor.client.request.get
 
 class NetworkService(private val httpClient: HttpClient) : ProductRepository {
 
-    override suspend fun getProducts(): Result<List<Product>, NetworkError> {
+    override suspend fun getFeaturedProducts(): Result<List<Product>, NetworkError> {
         return safeCall<List<ProductDto>> {
             httpClient.get(
-                urlString = constructUrl("/products")
+                urlString = constructUrl("/products/category/electronics")
             )
         }.map { response ->
             response.map { it.toProduct() }
         }
     }
+
+    override suspend fun getPopularProducts(): Result<List<Product>, NetworkError> {
+        return safeCall<List<ProductDto>> {
+            httpClient.get(
+                urlString = constructUrl("/products/category/men's clothing")
+            )
+        }.map { response ->
+            response.map { it.toProduct() }
+        }
+    }
+
 }

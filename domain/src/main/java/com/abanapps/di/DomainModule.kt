@@ -1,9 +1,10 @@
 package com.abanapps.di
 
-import com.abanapps.repository.ProductRepository
-import com.abanapps.useCase.GetProductUseCase
+import com.abanapps.useCase.GetFeaturedProductUseCase
+import com.abanapps.useCase.GetPopularProductUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
-    factory { GetProductUseCase(get()) }
+    factory { GetFeaturedProductUseCase(get()) }
+    factory { GetPopularProductUseCase(get()) }
 }
