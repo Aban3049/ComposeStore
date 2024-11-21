@@ -1,5 +1,7 @@
 package com.abanapps.composestore.screens.home
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -77,19 +79,39 @@ fun HomeScreen(rootNavHostController: NavHostController = rememberNavController(
             modifier = Modifier.padding(it)
         ) {
 
-            composable<Routes.HomeScreen> {
+            composable<Routes.HomeScreen>(enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                )
+            }) {
                 HomeContent(navHostController = rootNavHostController)
             }
 
-            composable<Routes.SearchScreen> {
+            composable<Routes.SearchScreen>(enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                )
+            }) {
                 SearchScreen()
             }
 
-            composable<Routes.CartScreen> {
+            composable<Routes.CartScreen>(enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                )
+            }) {
                 AddToCartScreen()
             }
 
-            composable<Routes.ProfileScreen> {
+            composable<Routes.ProfileScreen>(enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                )
+            }) {
                 ProfileScreen()
             }
 

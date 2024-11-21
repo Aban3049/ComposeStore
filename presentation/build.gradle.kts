@@ -67,5 +67,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.compose.shimmer)
+    implementation (libs.androidx.constraintlayout.compose)
 
 }

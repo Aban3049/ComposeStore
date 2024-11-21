@@ -1,8 +1,10 @@
 package com.abanapps.composestore.screens.home
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +44,7 @@ import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.abanapps.composestore.R
+import com.abanapps.composestore.navigation.routes.Routes
 import com.abanapps.composestore.ui.theme.Blue
 import com.abanapps.composestore.viewModel.HomeViewModel
 import com.abanapps.models.Product
@@ -148,7 +151,10 @@ fun HomeContent(navHostController: NavHostController, viewModel: HomeViewModel =
                 is HomeViewModel.FeatureProductsUiEvents.Success -> {
                     val data =
                         (uiStates.value as HomeViewModel.FeatureProductsUiEvents.Success).products
-                    FeatureRow(product = data)
+                    AnimatedVisibility(visible = true) {
+                        FeatureRow(product = data,navHostController)
+                    }
+
                 }
             }
 
@@ -242,8 +248,9 @@ fun HomeContent(navHostController: NavHostController, viewModel: HomeViewModel =
                     val popularProducts =
                         (popularFeaturedProducts.value as HomeViewModel.PopularProductsUiEvent.Success).product
 
-                    PopularProducts(popularProducts)
-
+                    AnimatedVisibility(visible = true) {
+                        PopularProducts(popularProducts,navHostController)
+                    }
                 }
             }
 
@@ -332,7 +339,7 @@ fun SearchBar(value: String, onValueChange: (String) -> Unit) {
 }
 
 @Composable
-fun FeatureRow(product: List<Product>) {
+fun FeatureRow(product: List<Product>,navHostController: NavHostController) {
     LazyRow(modifier = Modifier.padding(horizontal = 8.dp)) {
 
         items(product) {
@@ -343,6 +350,16 @@ fun FeatureRow(product: List<Product>) {
                 modifier = Modifier
                     .width(140.dp)
                     .height(150.dp)
+                    .clickable {
+                       navHostController.navigate(Routes.ProductDetailScreen(
+                           imageUrl = it.image,
+                           itemTitle = it.title,
+                           itemDescription = it.description,
+                           itemPrice = it.price,
+                           rating = it.rating.rate,
+                           count = it.rating.count
+                       ))
+                    }
                     .padding(horizontal = 8.dp),
                 colors = CardDefaults.cardColors(Color(0xFFF8F7F7))
             ) {
@@ -402,7 +419,7 @@ fun FeatureRow(product: List<Product>) {
 
 
 @Composable
-fun PopularProducts(product: List<Product>) {
+fun PopularProducts(product: List<Product>,navHostController: NavHostController) {
 
     LazyRow(modifier = Modifier.padding(horizontal = 8.dp)) {
         items(product) {
@@ -412,7 +429,17 @@ fun PopularProducts(product: List<Product>) {
                 modifier = Modifier
                     .width(120.dp)
                     .height(160.dp)
-                    .padding(horizontal = 8.dp),
+                    .padding(horizontal = 8.dp)
+                    .clickable {
+                        navHostController.navigate(Routes.ProductDetailScreen(
+                            imageUrl = it.image,
+                            itemTitle = it.title,
+                            itemDescription = it.description,
+                            itemPrice = it.price,
+                            rating = it.rating.rate,
+                            count = it.rating.count
+                        ))
+                    },
                 colors = CardDefaults.cardColors(Color(0xFFF8F7F7))
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
